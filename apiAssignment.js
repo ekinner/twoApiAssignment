@@ -29,13 +29,10 @@ request.onload = function(){
     }
     
 }
-function changeDesc(){
-    var descP = document.querySelector("#description");
-    descP.removeChild(descP.childNodes[0]);
-    var ind = document.querySelector("#movies").selectedIndex;
-    var movieDesc = document.createElement("P");
-    var movieDescTextNode = document.createTextNode(movieDescs[ind]);
-    movieDesc.appendChild(movieDescTextNode);
-    document.querySelector('#description').appendChild(movieDesc);
+function getAccData(){
+    const request = new XMLHttpRequest();
+    var APIkey = "RGAPI-e3fa49d3-6108-4a78-9f0d-2dcbf0c07cc0";
+
+    request.open("GET", "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/", true);
 }
 request.send();
