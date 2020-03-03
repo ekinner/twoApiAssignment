@@ -22,6 +22,33 @@ function getAccData(){
                 data2 = JSON.parse(this.response);
                 if(request2.status == 200){
                     console.log(data2);
+                    data2.matches.forEach(
+                        matches => {
+                        document.querySelector("#matchTable").style.display = "block";
+                        var tableRow = document.createElement("TR");
+                        document.querySelector("#matchTable").appendChild(tableRow);
+                        var regionData = document.createElement("TD");
+                        var regionInfo = document.createTextNode(`${matches.platformId}`);
+                        regionData.appendChild(regionInfo);
+                        document.querySelector("#matchTable").appendChild(regionData);
+                        var gameData = document.createElement("TD");
+                        var gameInfo = document.createTextNode(`${matches.gameId}`);
+                        gameData.appendChild(gameInfo)
+                        document.querySelector("#matchTable").appendChild(gameData);
+                        var championData = document.createElement("TD");
+                        var championInfo = document.createTextNode(`${matches.champion}`);
+                        championData.appendChild(championInfo)
+                        document.querySelector("#matchTable").appendChild(championData);
+                        var roleData = document.createElement("TD");
+                        var roleInfo = document.createTextNode(`${matches.role}`);
+                        roleData.appendChild(roleInfo)
+                        document.querySelector("#matchTable").appendChild(roleData);
+                        var laneData = document.createElement("TD");
+                        var laneInfo = document.createTextNode(`${matches.lane}`);
+                        laneData.appendChild(laneInfo)
+                        document.querySelector("#matchTable").appendChild(laneData);    
+                    }
+                    );
                 }else{
                     console.log(`Error occured. Status: ${request2.status}`);
                 }
