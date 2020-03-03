@@ -1,20 +1,35 @@
 let data = "";
 
-var movieDescs = [];
-var i = 0;
-
-
 function getAccData(){
     const request = new XMLHttpRequest();
     var APIkey = "RGAPI-e3fa49d3-6108-4a78-9f0d-2dcbf0c07cc0";
     var accName = document.querySelector("#accName").value;
-    console.log(accName);
 
-    request.open("GET", "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + accName +"?api_key=" + APIkey, true);
+    request.open("GET", "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + accName + "?api_key=" + APIkey, true);
 
     request.onload = function(){
         data = JSON.parse(this.response);
-        console.log(data);
+        if(request.status == 200){
+            console.log(data);
+            var accId = data.accountId;
+
+            const request2 = new XMLHttpRequest();
+
+            let data2 = "";
+
+            request2.open("GET", "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accId + "?api_key=" + APIkey, true);
+            request2.onload = function(){
+                data2 = JSON.parse(this.response);
+                if(request2.status == 200){
+                    console.log(data2);
+                }else{
+                    console.log(`Error occured. Status: ${request2.status}`);
+                }
+            }
+            request2.send();
+        }else{
+            console.log(`Error occured. Status: ${request.status}`);
+        }
     }
     request.send();
 }
@@ -37,4 +52,4 @@ function getAccData(){
 //     document.querySelector('#description').appendChild(movieDesc);
 // }else{
 //     console.log(`Error occured. Status: ${request.status}`);
-// }
+//
